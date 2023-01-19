@@ -12,7 +12,7 @@ pr0fess0r_99=Client(
 )
 
 CHAT_ID = None
-TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention}\nWelcome To {title}\n\nYour Auto Approved")
+TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention}\nWelcome To {title}\n\nYour Auto Approved"),
 
 
 @pr0fess0r_99.on_message(filters.private & filters.command(["start"]))
