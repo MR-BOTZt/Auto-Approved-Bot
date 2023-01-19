@@ -12,14 +12,14 @@ pr0fess0r_99=Client(
 )
 
 CHAT_ID = None
-TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention}\nWelcome To {title}\n\nYour Auto Approved"),
+TEXT = environ.get("APPROVED_WELCOME_TEXT", "Hello {mention}\nWelcome To {title}\n\nYour Auto Approved")
 
 
 @pr0fess0r_99.on_message(filters.private & filters.command(["start"]))
 async def start(client: pr0fess0r_99, message: Message):
     bot = await client.get_me()
     await message.reply_text(
-        text=f"**__Hello {message.from_user.mention} Iam Auto Approver Join Request Bot"
+        text=f"**__Hello {message.from_user.mention} Iam Auto Approver Join Request Bot",
         reply_markup=InlineKeyboardMarkup( [[
             InlineKeyboardButton("📢 BOT UPDATES", url="https://t.me/REQUSET_ACCEPT_BOT"),
             InlineKeyboardButton("📢 BOT SUPPORT", url="https://t.me/REQUSET_ACCEPT_BOT")
