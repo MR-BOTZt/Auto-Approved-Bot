@@ -46,7 +46,7 @@ async def autoapprove(client: pr0fess0r_99, message: ChatJoinRequest):
          reply_markup=btn
         )
     add_user(user.id)
-except errors.PeerIdInvalid as e:
+    except errors.PeerIdInvalid as e:
     print("user isn't start bot(means group)")
 except Exception as err:
     print(str(err))   
