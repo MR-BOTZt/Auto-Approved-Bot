@@ -46,10 +46,7 @@ async def autoapprove(client: pr0fess0r_99, message: ChatJoinRequest):
          reply_markup=btn
         )
     add_user(user.id)
-    except errors.PeerIdInvalid as e:
-    print("user isn't start bot(means group)")
-except Exception as err:
-    print(str(err))   
+ 
 
 @pr0fess0r_99.on_message(filters.command("users") & filters.user(cfg.SUDO))
 async def dbtool(_, m : Message):
