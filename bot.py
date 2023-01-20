@@ -3,6 +3,7 @@
 from os import environ
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, User, ChatJoinRequest
+from database import add_user, add_group, all_users, all_groups, users, remove_user
 
 pr0fess0r_99=Client(
     "Auto Approved Bot",
@@ -44,6 +45,49 @@ async def autoapprove(client: pr0fess0r_99, message: ChatJoinRequest):
             f"**Hello {message.from_user.mention}!\nYou Request To Join {message.chat.title} Was Approved.🏻",
             reply_markup=btn
         )
+
+@pr0fess0r_99.on_message(filters.command("users") & filters.user(cfg.SUDO))
+async def dbtool(_, m : Message):
+    xx = all_users()
+    x = all_groups()
+    tot = int(xx + x)
+    await m.reply_text(text=f"""
+🍀 Chats Stats 🍀
+🙋‍♂️ Users : `{xx}`
+👥 Groups : `{x}`
+🚧 Total users & groups : `{tot}` """)
+
+@app.on_message(filters.command("bcast") & filters.user(cfg.SUDO))
+async def bcast(_, m : Message):
+    allusers = users
+    lel = await m.reply_text("`⚡️ Processing...`")
+    success = 0
+    failed = 0
+    deactivated = 0
+    blocked = 0
+    for usrs in allusers.find():
+        try:
+            userid = usrs["user_id"]
+            print(int(userid))
+            if m.command[0] == "bcast":
+                await m.reply_to_message.copy(int(userid))
+            success +=1
+        except FloodWait as ex:
+            await asyncio.sleep(ex.value)
+            if m.command[0] == "bcast":
+                await m.reply_to_message.copy(int(userid))
+        except errors.InputUserDeactivated:
+            deactivated +=1
+            remove_user(userid)
+        except errors.UserIsBlocked:
+            blocked +=1
+        except Exception as e:
+            print(e)
+            failed +=1
+
+    await lel.edit(f"✅Successfull to `{success}` users.\n❌ Faild to `{failed}` users.\n👾 Found `{blocked}` Blocked users \n👻 Found `{deactivated}` Deactivated users.")
+
+
 
 print("Bot Started. Editz By @jeol_tg")
 pr0fess0r_99.run()
