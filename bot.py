@@ -42,14 +42,14 @@ async def autoapprove(client: pr0fess0r_99, message: ChatJoinRequest):
     btn = InlineKeyboardMarkup([[InlineKeyboardButton("📢 BOT UPDATES", url="https://t.me/REQUSET_ACCEPT_BOT")]])
     await client.send_message(
          user.id,
-            f"**Hello {message.from_user.mention}!\nYou Request To Join {message.chat.title} Was Approved.🏻",
-            reply_markup=btn
+         f"**Hello {message.from_user.mention}!\nYou Request To Join {message.chat.title} Was Approved.🏻",
+         reply_markup=btn
         )
-        add_user(user.id)
-    except errors.PeerIdInvalid as e:
-        print("user isn't start bot(means group)")
-    except Exception as err:
-        print(str(err))   
+    add_user(user.id)
+except errors.PeerIdInvalid as e:
+    print("user isn't start bot(means group)")
+except Exception as err:
+    print(str(err))   
 
 @pr0fess0r_99.on_message(filters.command("users") & filters.user(cfg.SUDO))
 async def dbtool(_, m : Message):
